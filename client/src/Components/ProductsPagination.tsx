@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 type ProductsPaginationType = {
   totalPages: number;
-  changePage: any;
+  changePage: (page: number, type?: string) => void;
 };
 
 export default function ProductsPagination({
