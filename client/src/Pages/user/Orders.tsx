@@ -78,7 +78,7 @@ export default function Orders() {
 
   async function getOrders() {
     const { data } = await axios.get("/orders", {
-      params: { userId: user.id, ordersCurrentPage, limit: 2 },
+      params: { userId: user.id, ordersCurrentPage, limit: 8 },
     });
     console.log(data);
     return data.result;

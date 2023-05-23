@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CategoryData } from "../types/pages/category";
-import { FilterProductsType, PriceType } from "../types/pages/product";
+import { PriceType } from "../types/pages/product";
 
 async function getCategories() {
   return await axios
@@ -17,7 +17,7 @@ async function getCategories() {
 export default function ProductsFilter({
   filterProducts,
 }: {
-  filterProducts: (obj: FilterProductsType) => void;
+  filterProducts: () => void;
 }) {
   const [params, setParams] = useSearchParams();
 
@@ -60,16 +60,13 @@ export default function ProductsFilter({
     const checkPrice = checkPriceAmount();
 
     if (checkPrice) {
-      filterProducts({ category: filterCategory, price: filterPrice });
+      setParameter("page", "1");
+      filterProducts();
     }
   }
 
   useEffect(() => {
     submitFilters();
-    // if(filterCategory != "" ||
-    //   filterPrice.min > 0){
-
-    // }
 
     //eslint-disable-next-line
   }, []);

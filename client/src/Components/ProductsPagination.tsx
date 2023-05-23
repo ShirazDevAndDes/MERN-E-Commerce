@@ -1,16 +1,14 @@
 import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReactQueryMutationType } from "../types/reactQuery";
+import { useSearchParams } from "react-router-dom";
 
 type ProductsPaginationType = {
   totalPages: number;
-  currentPage: string | number;
-  changePage: ReactQueryMutationType;
+  changePage: any;
 };
 
 export default function ProductsPagination({
   totalPages,
-  currentPage,
   changePage,
 }: ProductsPaginationType) {
   const pageNumbers: number[] = [];
@@ -18,27 +16,18 @@ export default function ProductsPagination({
   for (var i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  // console.log(currentPage);
-  const lastPage = pageNumbers[pageNumbers.length - 1];
-  function prevPage() {
-    // console.log("Prev: ", currentPage <= 1 ? 1 : currentPage - 1);
-    changePage(currentPage <= 1 ? 1 : parseInt(currentPage.toString()) - 1);
-  }
 
-  function nextPage() {
-    // console.log("Next: ", currentPage >= lastPage ? lastPage : currentPage + 1);
-    changePage(
-      currentPage >= lastPage ? lastPage : parseInt(currentPage.toString()) + 1
-    );
-  }
+  const [params] = useSearchParams();
+
+  let page = parseInt(params.get("page")) || 1;
 
   return (
     <div className="btn-group" role="group" aria-label="First group">
       <button
         type="button"
         className="btn btn-outline-secondary"
-        disabled={currentPage <= 1 ? true : false}
-        onClick={prevPage}
+        disabled={page <= 1 ? true : false}
+        onClick={() => changePage(page || 1, "prev")}
       >
         <FontAwesomeIcon icon={faAnglesLeft} />
       </button>
@@ -58,8 +47,8 @@ export default function ProductsPagination({
       <button
         type="button"
         className="btn btn-outline-secondary"
-        disabled={currentPage >= lastPage ? true : false}
-        onClick={nextPage}
+        disabled={page >= totalPages ? true : false}
+        onClick={() => changePage(page || totalPages, "next")}
       >
         <FontAwesomeIcon icon={faAnglesRight} />
       </button>
