@@ -1,7 +1,7 @@
 const { default: mongoose, SchemaTypes } = require("mongoose");
 const validator = require("validator");
 const stripe = require("stripe")(
-  "sk_test_51MIAYoEDavN9CupIo2zmwfPLf8Q6xAJn41wBfqeEBvi8C7ETzTT3s2sdQvtpxCTzQ2UZJ0Fs7FIb8WK7T5LHzUZ700JcNvlLx6"
+  process.env.STRIPE_KEY
 );
 
 const ordersSchema = new mongoose.Schema(
