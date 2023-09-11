@@ -3,9 +3,9 @@ const cloudinary = require("cloudinary").v2;
 const validator = require("validator");
 
 cloudinary.config({
-  cloud_name: "dofvhl2fa",
-  api_key: "519814318963169",
-  api_secret: "8R4PN4_OwSh5ENn3TwwBoIRUUSI",
+  cloud_name: process.env.CLOUTINARY_CLOUD_NAME,
+  api_key: process.env.CLOUTINARY_API_KEY,
+  api_secret: process.env.CLOUTINARY_API_SECRET,
 });
 
 const bannerSchema = new mongoose.Schema(
